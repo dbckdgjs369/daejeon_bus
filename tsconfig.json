@@ -15,7 +15,7 @@
     "outDir": "./dist",
     "moduleResolution": "node",
     "jsxImportSource": "@emotion/react",
-    "typeRoots": ["./node_modules/@types", "types"]
+    "typeRoots": ["./node_modules/@types", "src/types"]
   },
   "exclude": ["node_modules"],
   "include": ["**/*.ts", "**/*.tsx"]
