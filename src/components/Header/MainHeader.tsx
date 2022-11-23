@@ -1,14 +1,14 @@
 import styled from "@emotion/styled";
-import Search from "../images/search.svg";
-import Setting from "../images/settings.svg";
-import MapIcon from "../images/map-pin.svg";
+import Search from "../../images/search.svg";
+import Setting from "../../images/settings.svg";
+import MapIcon from "../../images/map-pin.svg";
 
 const Wrapper = styled.div`
   color: white;
   background-color: #333;
   height: 5vh;
   display: flex;
-  padding: 10px;
+  padding: 0.7rem 1rem;
   justify-content: space-between;
   align-items: center;
   flex-direction: row;
@@ -16,7 +16,7 @@ const Wrapper = styled.div`
 const OptionWrapper = styled.div`
   display: flex;
   flex-direction: row;
-  gap: 1rem;
+  gap: 0.5rem;
 `;
 
 const Button = styled.button`
@@ -30,6 +30,9 @@ const Button = styled.button`
   color: white;
   border-radius: 100%;
   :focus {
+    background-color: #555;
+  }
+  :hover {
     background-color: #555;
   }
 `;
