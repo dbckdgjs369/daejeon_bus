@@ -22,6 +22,13 @@ module.exports = {
         use: ["babel-loader", "ts-loader"],
       },
       {
+        test: /\.(png|jpg|svg|gif)$/,
+        loader: "file-loader",
+        options: {
+          name: "[name].[ext]",
+        },
+      },
+      {
         test: /\.css$/,
         use: [
           {
