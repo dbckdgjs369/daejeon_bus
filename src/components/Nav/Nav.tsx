@@ -26,13 +26,18 @@ const Content = styled.button<ContentProps>`
 interface ContentProps {
   isSelected: boolean;
 }
-type SelectedProps = "favorite" | "route" | "station" | "subway";
-const Nav = () => {
+interface NavProps {
+  setSelectedPage: React.Dispatch<React.SetStateAction<SelectedProps>>;
+}
+export type SelectedProps = "favorite" | "route" | "station" | "subway";
+
+const Nav = ({ setSelectedPage }: NavProps) => {
   const [selected, setSelected] = useState<SelectedProps>("favorite");
   const clicked = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     setSelected(e.currentTarget.value as SelectedProps);
-    console.log(e.currentTarget.value);
+    setSelectedPage(e.currentTarget.value as SelectedProps);
   };
+
   return (
     <NavWrapper>
       <Content
