@@ -13,12 +13,16 @@ const Wrapper = styled.div<WrapperProps>`
 interface WrapperProps {
   isTitle: boolean;
 }
-interface ItemProps extends WrapperProps {
+interface ItemProps extends WrapperProps, React.HTMLAttributes<HTMLElement> {
   content: string;
 }
 
-const Item = ({ content, isTitle }: ItemProps) => {
-  return <Wrapper isTitle={isTitle}>{content}</Wrapper>;
+const Item = ({ content, isTitle, ...rest }: ItemProps) => {
+  return (
+    <Wrapper isTitle={isTitle} {...rest}>
+      {content}
+    </Wrapper>
+  );
 };
 
 export default Item;
