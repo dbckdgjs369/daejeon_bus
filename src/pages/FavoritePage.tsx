@@ -3,10 +3,10 @@ import { getBusRouteId } from "../utils/getBusRouteID";
 import { getBusRoute } from "../apis/getBusRoute";
 
 const FavoritePage = () => {
-  const clickItem = (e: React.MouseEvent<HTMLElement, MouseEvent>) => {
+  const clickItem = async (e: React.MouseEvent<HTMLElement, MouseEvent>) => {
     console.log(getBusRouteId(e.currentTarget.textContent));
     const id = getBusRouteId(e.currentTarget.textContent);
-    const temp = getBusRoute(id);
+    const temp = await getBusRoute(id);
     console.log(temp);
   };
   return (
