@@ -12,6 +12,7 @@ module.exports = {
     extensions: [".js", ".jsx", ".ts", ".tsx"],
   },
   devServer: {
+    historyApiFallback: true,
     port: 3000,
     hot: true,
     proxy: {

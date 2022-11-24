@@ -1,10 +1,16 @@
-import React from "react";
 import MainPage from "./pages/MainPage";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import Test from "./pages/Test";
 
-const App = () => (
-  <>
-    <MainPage />
-  </>
-);
+const App = () => {
+  return (
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<MainPage />} />
+        <Route path="/a" element={<Test />} />
+      </Routes>
+    </BrowserRouter>
+  );
+};
 
 export default App;
