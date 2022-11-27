@@ -7,6 +7,7 @@ import MainHeader from "./components/Header/MainHeader";
 import Nav from "./components/Nav/Nav";
 import { SelectedProps } from "./components/Nav/Nav";
 import FavoritePage from "./pages/FavoritePage";
+import BusRoutePage from "./pages/BusRoutePage";
 
 const App = () => {
   const [selectedPage, setSelectedPage] = useState<SelectedProps>("favorite");
@@ -18,7 +19,8 @@ const App = () => {
         <Routes>
           <Route path="/" element={<Navigate to={"/favorite"} />} />
           <Route path="/favorite" element={<FavoritePage />} />
-          <Route path="/route:routeNumber" element={<RoutePage />} />
+          <Route path="/allroute:" element={<RoutePage />} />
+          <Route path="/route/:busNumber" element={<BusRoutePage />} />
           <Route path="/station" element={<StationPage />} />
           <Route path="/subway" element={<SubwayPage />} />
         </Routes>
