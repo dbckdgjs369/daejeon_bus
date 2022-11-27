@@ -1,4 +1,5 @@
 import styled from "@emotion/styled";
+import { Link } from "react-router-dom";
 
 const Wrapper = styled.div<WrapperProps>`
   display: flex;
@@ -10,6 +11,10 @@ const Wrapper = styled.div<WrapperProps>`
   font-weight: ${(props) => (props.isTitle ? "800" : "500")};
   border-left: ${(props) => (props.isTitle ? "8px solid lightgreen" : "none")};
 `;
+const StyledLink = styled(Link)`
+  color: black;
+  text-decoration: none;
+`;
 interface WrapperProps {
   isTitle: boolean;
 }
@@ -20,7 +25,7 @@ interface ItemProps extends WrapperProps, React.HTMLAttributes<HTMLElement> {
 const Item = ({ content, isTitle, ...rest }: ItemProps) => {
   return (
     <Wrapper isTitle={isTitle} {...rest}>
-      {content}
+      <StyledLink to={`/route/${content}`}>{content}</StyledLink>
     </Wrapper>
   );
 };
