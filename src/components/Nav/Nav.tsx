@@ -1,5 +1,6 @@
 import styled from "@emotion/styled";
 import { useState } from "react";
+import { Link } from "react-router-dom";
 
 const NavWrapper = styled.div`
   display: flex;
@@ -23,6 +24,11 @@ const Content = styled.button<ContentProps>`
     background-color: #999;
   }
 `;
+
+const StyledLink = styled(Link)`
+  color: black;
+  text-decoration: none;
+`;
 interface ContentProps {
   isSelected: boolean;
 }
@@ -45,28 +51,28 @@ const Nav = ({ setSelectedPage }: NavProps) => {
         value="favorite"
         onClick={(e) => clicked(e)}
       >
-        즐겨찾기
+        <StyledLink to={"/"}>즐겨찾기</StyledLink>
       </Content>
       <Content
         isSelected={selected === "route"}
         value="route"
         onClick={(e) => clicked(e)}
       >
-        노선
+        <StyledLink to={"/route"}>노선</StyledLink>
       </Content>
       <Content
         isSelected={selected === "station"}
         value="station"
         onClick={(e) => clicked(e)}
       >
-        정류장
+        <StyledLink to={"/station"}>정류장</StyledLink>
       </Content>
       <Content
         isSelected={selected === "subway"}
         value="subway"
         onClick={(e) => clicked(e)}
       >
-        지하철
+        <StyledLink to={"/subway"}>지하철</StyledLink>
       </Content>
     </NavWrapper>
   );
