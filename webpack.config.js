@@ -1,4 +1,5 @@
 const HtmlWebpackPlugin = require("html-webpack-plugin");
+const FaviconsWebpackPlugin = require("favicons-webpack-plugin");
 const path = require("path");
 const webpack = require("webpack");
 const Dotenv = require("dotenv-webpack");
@@ -61,7 +62,11 @@ module.exports = {
       React: "react",
     }),
     new HtmlWebpackPlugin({
-      template: "./src/index.html",
+      template: "public/index.html",
+      // favicon: "public/favicon.ico",
+    }),
+    new FaviconsWebpackPlugin({
+      logo: "public/favicon-32x32.png",
     }),
     new webpack.HotModuleReplacementPlugin(),
   ],
