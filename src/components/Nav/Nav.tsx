@@ -1,6 +1,10 @@
 import styled from "@emotion/styled";
-import { useState } from "react";
-import { Link } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { Link, useLocation } from "react-router-dom";
+
+interface ContentProps {
+  isSelected: boolean;
+}
 
 const NavWrapper = styled.div`
   display: flex;
@@ -9,8 +13,10 @@ const NavWrapper = styled.div`
   justify-content: space-evenly;
   font-size: 0.9rem;
 `;
-const Content = styled.button<ContentProps>`
+const Content = styled(Link)<ContentProps>`
   display: flex;
+  color: black;
+  text-decoration: none;
   align-items: center;
   justify-content: center;
   width: 100%;
@@ -25,54 +31,29 @@ const Content = styled.button<ContentProps>`
   }
 `;
 
-const StyledLink = styled(Link)`
-  color: black;
-  text-decoration: none;
-`;
-interface ContentProps {
-  isSelected: boolean;
-}
-interface NavProps {
-  setSelectedPage: React.Dispatch<React.SetStateAction<SelectedProps>>;
-}
-export type SelectedProps = "favorite" | "route" | "station" | "subway";
+export type SelectedProps = "favorite" | "allroute" | "station" | "subway";
 
-const Nav = ({ setSelectedPage }: NavProps) => {
-  const [selected, setSelected] = useState<SelectedProps>("favorite");
-  const clicked = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
-    setSelected(e.currentTarget.value as SelectedProps);
-    setSelectedPage(e.currentTarget.value as SelectedProps);
-  };
+const Nav = () => {
+  const [selected, setSelected] = useState<SelectedProps>();
+  const currentLocation = useLocation();
+
+  useEffect(() => {
+    setSelected(currentLocation.pathname?.split("/")[1] as SelectedProps);
+  }, []);
 
   return (
     <NavWrapper>
-      <Content
-        isSelected={selected === "favorite"}
-        value="favorite"
-        onClick={(e) => clicked(e)}
-      >
-        <StyledLink to={"/"}>즐겨찾기</StyledLink>
+      <Content to={"/"} isSelected={selected === "favorite"}>
+        즐겨찾기
       </Content>
-      <Content
-        isSelected={selected === "route"}
-        value="route"
-        onClick={(e) => clicked(e)}
-      >
-        <StyledLink to={"/route"}>노선</StyledLink>
+      <Content to={"/allroute"} isSelected={selected === "allroute"}>
+        노선
       </Content>
-      <Content
-        isSelected={selected === "station"}
-        value="station"
-        onClick={(e) => clicked(e)}
-      >
-        <StyledLink to={"/station"}>정류장</StyledLink>
+      <Content to={"/station"} isSelected={selected === "station"}>
+        정류장
       </Content>
-      <Content
-        isSelected={selected === "subway"}
-        value="subway"
-        onClick={(e) => clicked(e)}
-      >
-        <StyledLink to={"/subway"}>지하철</StyledLink>
+      <Content to={"/subway"} isSelected={selected === "subway"}>
+        지하철
       </Content>
     </NavWrapper>
   );
