@@ -25,7 +25,11 @@ type BusInfo = {
 const BusRoutePage = () => {
   const { busNumber } = useParams();
   const [busStationArr, setBusTationArr] = useState<BusInfo[]>([]);
-  const [direction, setDirection] = useState<Direction>();
+  const [direction, setDirection] = useState<Direction>("upper");
+  const [upperBusRoute, setUpperBusRoute] = useState<BusInfo[]>([]);
+  const [lowerBusRoute, setLowerBusRoute] = useState<BusInfo[]>([]);
+  const [upperStation, setUpperStation] = useState("");
+  const [lowerStation, setLowerStation] = useState("");
 
   useEffect(() => {
     (async function fetchData() {
@@ -38,6 +42,18 @@ const BusRoutePage = () => {
   }, [busNumber]);
   useEffect(() => {
     console.log("bus", busStationArr);
+    if (busStationArr.length !== 0) {
+      const index = busStationArr.findIndex((element, index, array) => {
+        return element.BUSSTOP_TP === "2";
+      });
+      console.log(index);
+      const upper = busStationArr.slice(0, index + 1);
+      const lower = busStationArr.slice(index, busStationArr.length);
+      setUpperBusRoute(upper);
+      setLowerBusRoute(lower);
+      setUpperStation(busStationArr[0].BUSSTOP_NM);
+      setLowerStation(busStationArr[index].BUSSTOP_NM);
+    }
   }, [busStationArr]);
 
   useEffect(() => {
@@ -48,12 +64,16 @@ const BusRoutePage = () => {
       <StationInfoHeader title={busNumber ? busNumber : ""} />
       <DirectionNav
         setDirection={setDirection}
-        lowerDirection="충남대"
-        upperDirection="수통골"
+        lowerDirection={upperStation}
+        upperDirection={lowerStation}
       />
-      {busStationArr?.map((e) => (
-        <BusStationItem content={e.BUSSTOP_NM} />
-      ))}
+      {direction === "upper"
+        ? upperBusRoute?.map((e) => (
+            <BusStationItem content={e.BUSSTOP_NM} key={e.BUSSTOP_SEQ} />
+          ))
+        : lowerBusRoute?.map((e) => (
+            <BusStationItem content={e.BUSSTOP_NM} key={e.BUSSTOP_SEQ} />
+          ))}
     </div>
   );
 };

@@ -1,6 +1,12 @@
 import styled from "@emotion/styled";
 import { useState } from "react";
 
+interface SpanProps {
+  isSelected: boolean;
+}
+
+export type Direction = "upper" | "lower";
+
 const Wrapper = styled.div`
   display: flex;
   background-color: #f8f8f8;
@@ -27,41 +33,36 @@ const StyledSpan = styled.span<SpanProps>`
   }
 `;
 
-interface SpanProps {
-  isSelected: boolean;
-}
-
 interface DirectionProps {
   upperDirection: string;
   lowerDirection: string;
-  setDirection: React.Dispatch<React.SetStateAction<Direction | undefined>>;
+  setDirection: React.Dispatch<React.SetStateAction<Direction>>;
 }
-export type Direction = "upper" | "lower";
 const DirectionNav = ({
   upperDirection,
   lowerDirection,
   setDirection,
 }: DirectionProps) => {
   const [selected, setSelected] = useState<Direction>("upper");
-  const click = () => {
-    if (selected === "lower") {
-      setSelected("upper");
-      setDirection("upper");
-    }
-    if (selected === "upper") {
-      setSelected("lower");
-      setDirection("lower");
-    }
+  const clickUpper = () => {
+    setSelected("upper");
+    setDirection("upper");
+  };
+  const clickLower = () => {
+    setSelected("lower");
+    setDirection("lower");
   };
   return (
-    <Wrapper>
-      <StyledSpan onClick={click} isSelected={selected === "upper"}>
-        {upperDirection}방향
-      </StyledSpan>
-      <StyledSpan onClick={click} isSelected={selected === "lower"}>
-        {lowerDirection}방향
-      </StyledSpan>
-    </Wrapper>
+    <>
+      <Wrapper>
+        <StyledSpan onClick={clickUpper} isSelected={selected === "upper"}>
+          {upperDirection}방향
+        </StyledSpan>
+        <StyledSpan onClick={clickLower} isSelected={selected === "lower"}>
+          {lowerDirection}방향
+        </StyledSpan>
+      </Wrapper>
+    </>
   );
 };
 

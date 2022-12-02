@@ -3,8 +3,10 @@ import { useEffect, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 
 interface ContentProps {
-  isSelected: boolean;
+  isselected: string;
 }
+
+export type SelectedProps = "favorite" | "allroute" | "station" | "subway";
 
 const NavWrapper = styled.div`
   display: flex;
@@ -25,13 +27,11 @@ const Content = styled(Link)<ContentProps>`
   border: none;
   font-weight: 600;
   border-bottom: ${(props) =>
-    props.isSelected ? "4px solid lightgreen" : "none"};
+    props.isselected === "true" ? "4px solid lightgreen" : "none"};
   :focus {
     background-color: #999;
   }
 `;
-
-export type SelectedProps = "favorite" | "allroute" | "station" | "subway";
 
 const Nav = () => {
   const [selected, setSelected] = useState<SelectedProps>();
@@ -42,20 +42,34 @@ const Nav = () => {
   }, []);
 
   return (
-    <NavWrapper>
-      <Content to={"/"} isSelected={selected === "favorite"}>
-        즐겨찾기
-      </Content>
-      <Content to={"/allroute"} isSelected={selected === "allroute"}>
-        노선
-      </Content>
-      <Content to={"/station"} isSelected={selected === "station"}>
-        정류장
-      </Content>
-      <Content to={"/subway"} isSelected={selected === "subway"}>
-        지하철
-      </Content>
-    </NavWrapper>
+    <>
+      <NavWrapper>
+        <Content
+          to={"/"}
+          isselected={selected === "favorite" ? "true" : "false"}
+        >
+          즐겨찾기
+        </Content>
+        <Content
+          to={"/allroute"}
+          isselected={selected === "allroute" ? "true" : "false"}
+        >
+          노선
+        </Content>
+        <Content
+          to={"/station"}
+          isselected={selected === "station" ? "true" : "false"}
+        >
+          정류장
+        </Content>
+        <Content
+          to={"/subway"}
+          isselected={selected === "subway" ? "true" : "false"}
+        >
+          지하철
+        </Content>
+      </NavWrapper>
+    </>
   );
 };
 

@@ -53,6 +53,7 @@ module.exports = {
 
   output: {
     path: path.join(__dirname, "/dist"),
+    publicPath: "/",
     filename: "bundle.js",
   },
 
@@ -63,7 +64,6 @@ module.exports = {
     }),
     new HtmlWebpackPlugin({
       template: "public/index.html",
-      // favicon: "public/favicon.ico",
     }),
     new FaviconsWebpackPlugin({
       logo: "public/favicon-32x32.png",
