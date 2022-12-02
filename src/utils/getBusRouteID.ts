@@ -1,7 +1,7 @@
 import data from "../../output_file.js";
 
-const getBusRouteId = (busNumber: string | null) => {
-  if (busNumber === null) {
+const getBusRouteId = (busNumber: string | undefined) => {
+  if (busNumber === undefined) {
     return;
   }
   const busInfo = data.ServiceResult.msgBody.itemList.filter(

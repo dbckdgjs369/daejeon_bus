@@ -42,6 +42,6 @@ function xmlToJson(xml) {
       }
     }
   }
-  return obj;
+  return JSON.parse(JSON.stringify(obj));
 }
 export { xmlToJson };

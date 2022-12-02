@@ -1,5 +1,12 @@
 import styled from "@emotion/styled";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { Link, useLocation } from "react-router-dom";
+
+interface ContentProps {
+  isselected: string;
+}
+
+export type SelectedProps = "favorite" | "allroute" | "station" | "subway";
 
 const NavWrapper = styled.div`
   display: flex;
@@ -8,8 +15,10 @@ const NavWrapper = styled.div`
   justify-content: space-evenly;
   font-size: 0.9rem;
 `;
-const Content = styled.button<ContentProps>`
+const Content = styled(Link)<ContentProps>`
   display: flex;
+  color: black;
+  text-decoration: none;
   align-items: center;
   justify-content: center;
   width: 100%;
@@ -18,57 +27,49 @@ const Content = styled.button<ContentProps>`
   border: none;
   font-weight: 600;
   border-bottom: ${(props) =>
-    props.isSelected ? "4px solid lightgreen" : "none"};
+    props.isselected === "true" ? "4px solid lightgreen" : "none"};
   :focus {
     background-color: #999;
   }
 `;
-interface ContentProps {
-  isSelected: boolean;
-}
-interface NavProps {
-  setSelectedPage: React.Dispatch<React.SetStateAction<SelectedProps>>;
-}
-export type SelectedProps = "favorite" | "route" | "station" | "subway";
 
-const Nav = ({ setSelectedPage }: NavProps) => {
-  const [selected, setSelected] = useState<SelectedProps>("favorite");
-  const clicked = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
-    setSelected(e.currentTarget.value as SelectedProps);
-    setSelectedPage(e.currentTarget.value as SelectedProps);
-  };
+const Nav = () => {
+  const [selected, setSelected] = useState<SelectedProps>();
+  const currentLocation = useLocation();
+
+  useEffect(() => {
+    setSelected(currentLocation.pathname?.split("/")[1] as SelectedProps);
+  }, []);
 
   return (
-    <NavWrapper>
-      <Content
-        isSelected={selected === "favorite"}
-        value="favorite"
-        onClick={(e) => clicked(e)}
-      >
-        즐겨찾기
-      </Content>
-      <Content
-        isSelected={selected === "route"}
-        value="route"
-        onClick={(e) => clicked(e)}
-      >
-        노선
-      </Content>
-      <Content
-        isSelected={selected === "station"}
-        value="station"
-        onClick={(e) => clicked(e)}
-      >
-        정류장
-      </Content>
-      <Content
-        isSelected={selected === "subway"}
-        value="subway"
-        onClick={(e) => clicked(e)}
-      >
-        지하철
-      </Content>
-    </NavWrapper>
+    <>
+      <NavWrapper>
+        <Content
+          to={"/"}
+          isselected={selected === "favorite" ? "true" : "false"}
+        >
+          즐겨찾기
+        </Content>
+        <Content
+          to={"/allroute"}
+          isselected={selected === "allroute" ? "true" : "false"}
+        >
+          노선
+        </Content>
+        <Content
+          to={"/station"}
+          isselected={selected === "station" ? "true" : "false"}
+        >
+          정류장
+        </Content>
+        <Content
+          to={"/subway"}
+          isselected={selected === "subway" ? "true" : "false"}
+        >
+          지하철
+        </Content>
+      </NavWrapper>
+    </>
   );
 };
 

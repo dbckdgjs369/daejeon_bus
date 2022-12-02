@@ -37,6 +37,11 @@ const Button = styled.button`
     background-color: #555;
   }
 `;
+const H1 = styled.h1`
+  font-size: 1.2rem;
+  font-weight: 900;
+  margin-left: -5rem;
+`;
 
 interface StationInfoHeaderProps {
   title: string;
@@ -48,7 +53,7 @@ const StationInfoHeader = ({ title }: StationInfoHeaderProps) => {
       <Button>
         <img src={LeftArrow} />
       </Button>
-      <h1>{title}</h1>
+      <H1>{title}</H1>
       <OptionWrapper>
         <Button>
           <img src={Star} />
