@@ -7,6 +7,11 @@ import DirectionNav, { Direction } from "../components/Nav/DirectionNav";
 import StationInfoHeader from "../components/Header/StationInfoHeader";
 import { getRouteBusPosition } from "../apis/getArriveInfo";
 import { BusInfo, BusPos } from "../types/bus";
+import styled from "@emotion/styled";
+
+const ContentWrapper = styled.div`
+  padding-top: 6rem;
+`;
 
 const BusRoutePage = () => {
   const { busNumber } = useParams();
@@ -53,17 +58,19 @@ const BusRoutePage = () => {
         lowerDirection={upperStation}
         upperDirection={lowerStation}
       />
-      {direction === "upper"
-        ? upperBusRoute?.map((e) => (
-            <BusStationItem
-              isBusHere={busNodeIdArr.includes(e.BUS_NODE_ID)}
-              content={e.BUSSTOP_NM}
-              key={e.BUSSTOP_SEQ}
-            />
-          ))
-        : lowerBusRoute?.map((e) => (
-            <BusStationItem content={e.BUSSTOP_NM} key={e.BUSSTOP_SEQ} />
-          ))}
+      <ContentWrapper>
+        {direction === "upper"
+          ? upperBusRoute?.map((e) => (
+              <BusStationItem
+                isBusHere={busNodeIdArr.includes(e.BUS_NODE_ID)}
+                content={e.BUSSTOP_NM}
+                key={e.BUSSTOP_SEQ}
+              />
+            ))
+          : lowerBusRoute?.map((e) => (
+              <BusStationItem content={e.BUSSTOP_NM} key={e.BUSSTOP_SEQ} />
+            ))}
+      </ContentWrapper>
     </div>
   );
 };

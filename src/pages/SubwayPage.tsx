@@ -1,13 +1,14 @@
+import PageTemplate from "../components/Template/PageTemplate";
 import Header from "../components/Header/MainHeader";
 import Nav from "../components/Nav/Nav";
 
 const SubwayPage = () => {
   return (
-    <div>
+    <PageTemplate>
       <Header />
       <Nav />
-      SubwayPage
-    </div>
+      <PageTemplate.Main>SubwayPage</PageTemplate.Main>
+    </PageTemplate>
   );
 };
 
