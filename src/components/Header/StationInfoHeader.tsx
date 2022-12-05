@@ -7,12 +7,16 @@ import More from "../../images/more-vertical.svg";
 const Wrapper = styled.div`
   color: white;
   background-color: #333;
-  height: 5vh;
+  height: 2rem;
   display: flex;
   padding: 0.7rem 1rem;
   justify-content: space-between;
   align-items: center;
   flex-direction: row;
+  position: fixed;
+  left: 0;
+  right: 0;
+  z-index: 99;
 `;
 const OptionWrapper = styled.div`
   display: flex;

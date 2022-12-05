@@ -1,13 +1,14 @@
+import PageTemplate from "../components/Template/PageTemplate";
 import Header from "../components/Header/MainHeader";
 import Nav from "../components/Nav/Nav";
 
 const StationPage = () => {
   return (
-    <div>
+    <PageTemplate>
       <Header />
       <Nav />
-      StationPage
-    </div>
+      <PageTemplate.Main>StationPage</PageTemplate.Main>
+    </PageTemplate>
   );
 };
 

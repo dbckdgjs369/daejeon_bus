@@ -12,6 +12,10 @@ const Wrapper = styled.div`
   justify-content: space-between;
   align-items: center;
   flex-direction: row;
+  position: fixed;
+  left: 0;
+  right: 0;
+  z-index: 99;
 `;
 const OptionWrapper = styled.div`
   display: flex;

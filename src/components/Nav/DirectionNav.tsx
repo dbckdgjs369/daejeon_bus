@@ -10,9 +10,14 @@ export type Direction = "upper" | "lower";
 const Wrapper = styled.div`
   display: flex;
   background-color: #f8f8f8;
-  height: 2.5rem;
+  height: 2.6rem;
   justify-content: space-evenly;
   font-size: 0.9rem;
+  position: fixed;
+  top: 3.4rem;
+  left: 0;
+  right: 0;
+  z-index: 99;
 `;
 const StyledSpan = styled.span<SpanProps>`
   display: flex;
