@@ -14,6 +14,11 @@ const NavWrapper = styled.div`
   height: 2.5rem;
   justify-content: space-evenly;
   font-size: 0.9rem;
+  position: fixed;
+  top: 3.4rem;
+  left: 0;
+  right: 0;
+  z-index: 99;
 `;
 const Content = styled(Link)<ContentProps>`
   display: flex;
