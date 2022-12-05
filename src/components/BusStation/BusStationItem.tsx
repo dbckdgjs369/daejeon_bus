@@ -1,4 +1,5 @@
 import styled from "@emotion/styled";
+import Bus from "/public/favicon-32x32.png";
 
 const Station = styled.div`
   display: flex;
@@ -8,24 +9,31 @@ const Station = styled.div`
   justify-content: flex-start;
   padding-left: 6rem;
 `;
-const BusPosition = styled.div`
+const BusPosition = styled.div<BusPositionProps>`
   border-left: 1px solid #333;
   height: 2.5rem;
   position: absolute;
   left: 2rem;
 `;
+const BusImg = styled.img`
+  height: 1.5rem;
+  position: relative;
+  left: -0.8rem;
+  bottom: -0.4rem;
+  display: table;
+`;
 
 interface BusPositionProps {
   isBusHere?: boolean;
 }
-interface BusStationProps {
+interface BusStationProps extends BusPositionProps {
   content: string;
 }
 
-const BusStationItem = ({ content }: BusStationProps) => {
+const BusStationItem = ({ content, isBusHere }: BusStationProps) => {
   return (
     <Station>
-      <BusPosition />
+      <BusPosition>{isBusHere ? <BusImg src={Bus} /> : null}</BusPosition>
       {content}
     </Station>
   );
