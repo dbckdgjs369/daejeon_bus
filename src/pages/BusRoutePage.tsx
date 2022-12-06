@@ -65,10 +65,16 @@ const BusRoutePage = () => {
                 isBusHere={busNodeIdArr.includes(e.BUS_NODE_ID)}
                 content={e.BUSSTOP_NM}
                 key={e.BUSSTOP_SEQ}
+                busId={e.BUS_STOP_ID}
               />
             ))
           : lowerBusRoute?.map((e) => (
-              <BusStationItem content={e.BUSSTOP_NM} key={e.BUSSTOP_SEQ} />
+              <BusStationItem
+                content={e.BUSSTOP_NM}
+                key={e.BUSSTOP_SEQ}
+                isBusHere={busNodeIdArr.includes(e.BUS_NODE_ID)}
+                busId={e.BUS_STOP_ID}
+              />
             ))}
       </ContentWrapper>
     </div>

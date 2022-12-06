@@ -10,11 +10,11 @@ const FavoritePage = () => {
       <Nav />
       <PageTemplate.Main>
         <FavoriteItem content="정류장" isTitle />
-        <FavoriteItem content="둥지아파트" isTitle={false} />
-        <FavoriteItem content="둥지아파트" isTitle={false} />
+        <FavoriteItem content="둥지아파트" isTitle={false} itemType="station" />
+        <FavoriteItem content="둥지아파트" isTitle={false} itemType="station" />
         <FavoriteItem content="노선" isTitle />
-        <FavoriteItem content="102" isTitle={false} />
-        <FavoriteItem content="108" isTitle={false} />
+        <FavoriteItem content="102" isTitle={false} itemType="busNumber" />
+        <FavoriteItem content="108" isTitle={false} itemType="busNumber" />
       </PageTemplate.Main>
     </PageTemplate>
   );
