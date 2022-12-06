@@ -46,7 +46,9 @@ const H1 = styled.h1`
   font-weight: 900;
   margin-left: -5rem;
 `;
-
+const BackButton = styled(Button)`
+  margin-right: 2.5rem;
+`;
 interface StationInfoHeaderProps {
   title: string;
 }
@@ -54,9 +56,9 @@ interface StationInfoHeaderProps {
 const StationInfoHeader = ({ title }: StationInfoHeaderProps) => {
   return (
     <Wrapper>
-      <Button>
+      <BackButton>
         <img src={LeftArrow} />
-      </Button>
+      </BackButton>
       <H1>{title}</H1>
       <OptionWrapper>
         <Button>
