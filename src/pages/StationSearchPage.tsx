@@ -2,7 +2,7 @@ import PageTemplate from "../components/Template/PageTemplate";
 import Header from "../components/Header/MainHeader";
 import Nav from "../components/Nav/Nav";
 
-const StationPage = () => {
+const StationSearchPage = () => {
   return (
     <PageTemplate>
       <Header />
@@ -12,4 +12,4 @@ const StationPage = () => {
   );
 };
 
-export default StationPage;
+export default StationSearchPage;
