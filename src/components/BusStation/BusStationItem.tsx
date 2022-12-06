@@ -1,8 +1,11 @@
 import styled from "@emotion/styled";
+import { Link } from "react-router-dom";
 import Bus from "/public/favicon-32x32.png";
 
-const Station = styled.div`
+const Station = styled(Link)`
   display: flex;
+  color: black;
+  text-decoration: none;
   border-bottom: 1px solid #bbb8b8;
   height: 2.5rem;
   align-items: center;
@@ -28,11 +31,12 @@ interface BusPositionProps {
 }
 interface BusStationProps extends BusPositionProps {
   content: string;
+  busId: string;
 }
 
-const BusStationItem = ({ content, isBusHere }: BusStationProps) => {
+const BusStationItem = ({ content, isBusHere, busId }: BusStationProps) => {
   return (
-    <Station>
+    <Station to={`/station/${busId}`} state={{ busName: content }}>
       <BusPosition>{isBusHere ? <BusImg src={Bus} /> : null}</BusPosition>
       {content}
     </Station>
