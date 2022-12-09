@@ -16,7 +16,7 @@ const Wrapper = styled.div`
   display: flex;
   align-items: center;
   gap: 2rem;
-  justify-content: space-between;
+  /* justify-content: space-between; */
   padding: 0 1rem;
   border-bottom: 1px solid #eee;
   flex-grow: 1;
@@ -25,18 +25,25 @@ const Wrapper = styled.div`
 const Span = styled.span`
   font-size: 1rem;
   font-weight: 600;
+  width: 15%;
+`;
+const Time = styled.span`
+  font-size: 1rem;
+  font-weight: 600;
+  position: absolute;
+  margin-right: 1rem;
+  right: 0;
 `;
 const InfoWrapper = styled.div`
   font-size: 0.8rem;
   display: flex;
-  margin-left: -5rem;
+  /* margin-left: -5rem; */
   flex-direction: column;
   justify-content: center;
   gap: 0.3rem;
   height: 2.5rem;
 `;
 const BusType = styled.div<BusTypeColor>`
-  display: inline;
   border-left: 8px solid ${(props) => props.color};
   height: 2.5rem;
 `;
@@ -62,7 +69,7 @@ const BusArriveItem = ({
           <div>{busDirection} 방향</div>
           <div>{busRemainStation} 정류장 전</div>
         </InfoWrapper>
-        <Span>{Math.ceil(Number.parseInt(busRemainTime) / 60)}분</Span>
+        <Time>{Math.ceil(Number.parseInt(busRemainTime) / 60)}분</Time>
       </Wrapper>
     </ItemWrapper>
   );
