@@ -47,13 +47,13 @@ const Header = () => {
       <h1>대전버스</h1>
       <OptionWrapper>
         <Button>
-          <img src={MapIcon} />
+          <img src={MapIcon} alt="지도 아이콘" />
         </Button>
         <Button>
-          <img src={Search} />
+          <img src={Search} alt="검색 아이콘" />
         </Button>
         <Button>
-          <img src={Setting} />
+          <img src={Setting} alt="설정 아이콘" />
         </Button>
       </OptionWrapper>
     </Wrapper>
