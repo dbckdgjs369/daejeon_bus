@@ -51,24 +51,46 @@ const BackButton = styled(Button)`
 `;
 interface StationInfoHeaderProps {
   title: string;
+  busId: string;
 }
 
-const StationInfoHeader = ({ title }: StationInfoHeaderProps) => {
+const StationInfoHeader = ({ title, busId }: StationInfoHeaderProps) => {
+  const setFavorite = () => {
+    if (Number.isNaN(Number.parseInt(title))) {
+      //역 이름일 때
+      const favorite = JSON.parse(
+        localStorage.getItem("favorite_station") || "[]"
+      );
+      localStorage.setItem(
+        "favorite_station",
+        JSON.stringify([...favorite, title])
+      );
+    } else {
+      // 버스 번호일 때
+      const favorite = JSON.parse(
+        localStorage.getItem("favorite_route") || "[]"
+      );
+      localStorage.setItem(
+        "favorite_route",
+        JSON.stringify([...favorite, { busId, title }])
+      );
+    }
+  };
   return (
     <Wrapper>
-      <BackButton>
-        <img src={LeftArrow} />
+      <BackButton onClick={() => history.back()}>
+        <img src={LeftArrow} alt="뒤로가기 버튼" />
       </BackButton>
       <H1>{title}</H1>
       <OptionWrapper>
-        <Button>
-          <img src={Star} />
+        <Button onClick={() => setFavorite()}>
+          <img src={Star} alt="즐겨찾기 아이콘" />
         </Button>
         <Button>
-          <img src={Refresh} />
+          <img src={Refresh} alt="새로고침 아이콘" />
         </Button>
         <Button>
-          <img src={More} />
+          <img src={More} alt="더 보기 아이콘" />
         </Button>
       </OptionWrapper>
     </Wrapper>

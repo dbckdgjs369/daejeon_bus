@@ -26,6 +26,7 @@ type BusArriveInfo = {
 
 const BusStopPage = () => {
   const [arriveInfo, setArriveInfo] = useState<BusArriveInfo[]>([]);
+  const [isUpdate, setIsUpdate] = useState(false);
   const { busStopId } = useParams();
   const location = useLocation();
   const busStopTitle = location.state.busName;
@@ -34,22 +35,20 @@ const BusStopPage = () => {
       const result = await getBusStopInfo(busStopId).then(
         (res) => res.ServiceResult.msgBody.itemList
       );
-      console.log(result);
-      setArriveInfo(result);
-      // const busInfo = await getBusRoute(id);
-      // const currentPos: BusPos[] = await getRouteBusPosition(id).then(
-      //   (res) => res.ServiceResult.msgBody.itemList
-      // );
-      // setBusNodeIdArr(currentPos.map((e: BusPos) => e.BUS_NODE_ID));
-      // setBusPosition(currentPos);
-      // setBusTationArr(busInfo.ServiceResult.msgBody.itemList);
+      console.log(arriveInfo);
+      setArriveInfo(
+        result.sort(
+          (a: BusArriveInfo, b: BusArriveInfo) =>
+            Number.parseInt(a.ROUTE_NO) - Number.parseInt(b.ROUTE_NO)
+        )
+      );
     })();
-  }, [busStopId]);
+  }, [busStopId, isUpdate]);
   return (
     <PageTemplate>
-      <StationInfoHeader title={busStopTitle} />
+      <StationInfoHeader title={busStopTitle} busId="1" />
       <PageTemplate.Main>
-        <CountingNav />
+        <CountingNav setIsUpdate={setIsUpdate} />
         {arriveInfo.map((e) => (
           <BusArriveItem
             busDirection={e.DESTINATION}
@@ -57,6 +56,7 @@ const BusStopPage = () => {
             busRemainStation={e.STATUS_POS}
             busRemainTime={e.EXTIME_SEC}
             busType={e.LAST_CAT}
+            busMsg={e.MSG_TP}
             key={e.ROUTE_NO}
           />
         ))}

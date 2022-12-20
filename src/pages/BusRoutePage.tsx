@@ -23,10 +23,11 @@ const BusRoutePage = () => {
   const [busNodeIdArr, setBusNodeIdArr] = useState<string[]>([]);
   const [upperStation, setUpperStation] = useState("");
   const [lowerStation, setLowerStation] = useState("");
-
+  const [busId, setBusId] = useState("");
   useEffect(() => {
     (async function fetchData() {
       const id = getBusRouteId(busNumber);
+      setBusId(id as string);
       const busInfo = await getBusRoute(id);
       const currentPos: BusPos[] = await getRouteBusPosition(id).then(
         (res) => res.ServiceResult.msgBody.itemList
@@ -52,7 +53,7 @@ const BusRoutePage = () => {
 
   return (
     <div>
-      <StationInfoHeader title={busNumber ? busNumber : ""} />
+      <StationInfoHeader title={busNumber ? busNumber : ""} busId={busId} />
       <DirectionNav
         setDirection={setDirection}
         lowerDirection={upperStation}

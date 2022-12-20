@@ -5,6 +5,8 @@ interface BusColorProps {
   color: string;
 }
 
+const UPDATE_TIME = 15;
+
 const Wrapper = styled.div`
   display: flex;
   background-color: #f8f8f8;
@@ -32,24 +34,31 @@ const BusColor = styled.div<BusColorProps>`
   color: white;
   flex-grow: 1;
 `;
+interface NavProps {
+  setIsUpdate: React.Dispatch<React.SetStateAction<boolean>>;
+}
 
-const CountingNav = () => {
-  const [time, setTime] = useState(15);
+const CountingNav = ({ setIsUpdate }: NavProps) => {
+  const [time, setTime] = useState(UPDATE_TIME);
 
   useEffect(() => {
     const count = setInterval(() => {
-      if (time >= 0) {
-        setTime((prev) => {
-          if (prev > 0) {
-            return prev - 1;
-          } else {
-            return 15;
-          }
-        });
-      }
+      setTime((prev) => {
+        if (prev > 1) {
+          return prev - 1;
+        } else {
+          return UPDATE_TIME;
+        }
+      });
     }, 1000);
     return () => clearInterval(count);
   }, []);
+  useEffect(() => {
+    if (time === 1) {
+      setIsUpdate((prev) => !prev);
+    }
+  }, [time]);
+
   return (
     <Wrapper>
       <Counter>{time}초 후 새로고침</Counter>
