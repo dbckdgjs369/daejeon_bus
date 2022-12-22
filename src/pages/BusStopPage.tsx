@@ -46,7 +46,7 @@ const BusStopPage = () => {
   }, [busStopId, isUpdate]);
   return (
     <PageTemplate>
-      <StationInfoHeader title={busStopTitle} busId="1" />
+      <StationInfoHeader title={busStopTitle} stationId={busStopId} />
       <PageTemplate.Main>
         <CountingNav setIsUpdate={setIsUpdate} />
         {arriveInfo.map((e) => (

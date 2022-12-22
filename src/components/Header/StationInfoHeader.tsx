@@ -1,8 +1,10 @@
 import styled from "@emotion/styled";
 import LeftArrow from "../../images/arrow-left.svg";
 import Star from "../../images/star.svg";
+import FilledStar from "../../images/filled-star.svg";
 import Refresh from "../../images/refresh-cw.svg";
 import More from "../../images/more-vertical.svg";
+import { useEffect, useState } from "react";
 
 const Wrapper = styled.div`
   color: white;
@@ -34,9 +36,9 @@ const Button = styled.button`
   border: none;
   color: white;
   border-radius: 100%;
-  :focus {
+  /* :focus {
     background-color: #555;
-  }
+  } */
   :hover {
     background-color: #555;
   }
@@ -51,30 +53,70 @@ const BackButton = styled(Button)`
 `;
 interface StationInfoHeaderProps {
   title: string;
-  busId: string;
+  busId?: string;
+  stationId?: string;
 }
 
-const StationInfoHeader = ({ title, busId }: StationInfoHeaderProps) => {
-  const setFavorite = () => {
-    if (Number.isNaN(Number.parseInt(title))) {
-      //역 이름일 때
-      const favorite = JSON.parse(
-        localStorage.getItem("favorite_station") || "[]"
-      );
-      localStorage.setItem(
-        "favorite_station",
-        JSON.stringify([...favorite, title])
-      );
-    } else {
-      // 버스 번호일 때
-      const favorite = JSON.parse(
-        localStorage.getItem("favorite_route") || "[]"
-      );
-      localStorage.setItem(
-        "favorite_route",
-        JSON.stringify([...favorite, { busId, title }])
-      );
+const StationInfoHeader = ({
+  title,
+  busId,
+  stationId,
+}: StationInfoHeaderProps) => {
+  const hasValue = (obj: any, value: string) => {
+    if (obj) {
+      console.log(Object.keys(JSON.parse(obj)));
+      return Object.keys(JSON.parse(obj)).includes(value);
     }
+  };
+  const [isFavorite, setIsFavorite] = useState(
+    hasValue(localStorage.getItem("favorite_station"), title) ||
+      hasValue(localStorage.getItem("favorite_route"), title)
+  );
+
+  useEffect(() => {
+    console.log(title);
+  }, []);
+  const clickFavorite = () => {
+    if (isFavorite) {
+      //즐겨찾기가 이미 되어있을 때 ( 취소 로직)
+      if (Number.isNaN(Number.parseInt(title))) {
+        //역 이름일 때
+        const favorite = JSON.parse(
+          localStorage.getItem("favorite_station") || JSON.stringify({})
+        );
+        delete favorite[title];
+        localStorage.setItem("favorite_station", JSON.stringify(favorite));
+      } else {
+        // 버스 번호일 때
+        const favorite = JSON.parse(
+          localStorage.getItem("favorite_route") || JSON.stringify({})
+        );
+        delete favorite[title];
+        localStorage.setItem("favorite_route", JSON.stringify(favorite));
+      }
+    } else {
+      // 즐겨찾기에 추가 로직
+      if (Number.isNaN(Number.parseInt(title))) {
+        //역 이름일 때
+        const favorite = JSON.parse(
+          localStorage.getItem("favorite_station") || JSON.stringify({})
+        );
+        if (stationId) {
+          favorite[title] = stationId;
+          localStorage.setItem("favorite_station", JSON.stringify(favorite));
+        }
+      } else {
+        // 버스 번호일 때
+        const favorite = JSON.parse(
+          localStorage.getItem("favorite_route") || JSON.stringify({})
+        );
+        if (busId) {
+          favorite[title] = busId;
+          localStorage.setItem("favorite_route", JSON.stringify(favorite));
+        }
+      }
+    }
+    setIsFavorite((prev) => !prev);
   };
   return (
     <Wrapper>
@@ -83,8 +125,12 @@ const StationInfoHeader = ({ title, busId }: StationInfoHeaderProps) => {
       </BackButton>
       <H1>{title}</H1>
       <OptionWrapper>
-        <Button onClick={() => setFavorite()}>
-          <img src={Star} alt="즐겨찾기 아이콘" />
+        <Button onClick={() => clickFavorite()}>
+          {isFavorite ? (
+            <img src={FilledStar} alt="즐겨찾기 아이콘" />
+          ) : (
+            <img src={Star} alt="즐겨찾기 아이콘" />
+          )}
         </Button>
         <Button>
           <img src={Refresh} alt="새로고침 아이콘" />
