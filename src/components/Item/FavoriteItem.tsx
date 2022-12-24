@@ -32,9 +32,10 @@ interface WrapperProps {
 interface ItemProps extends WrapperProps, React.HTMLAttributes<HTMLElement> {
   content: string;
   itemType?: "station" | "busNumber";
+  busId?: string;
 }
 
-const Item = ({ content, isTitle, itemType, ...rest }: ItemProps) => {
+const Item = ({ content, isTitle, itemType, busId, ...rest }: ItemProps) => {
   return (
     <>
       {isTitle ? (
@@ -46,7 +47,12 @@ const Item = ({ content, isTitle, itemType, ...rest }: ItemProps) => {
               {content}
             </Wrapper>
           ) : (
-            <Wrapper to={`/station/${content}`} isTitle={isTitle} {...rest}>
+            <Wrapper
+              to={`/station/${busId}`}
+              isTitle={isTitle}
+              state={{ busName: content }}
+              {...rest}
+            >
               {content}
             </Wrapper>
           )}
