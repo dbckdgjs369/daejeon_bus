@@ -2,9 +2,10 @@ const HtmlWebpackPlugin = require("html-webpack-plugin");
 const FaviconsWebpackPlugin = require("favicons-webpack-plugin");
 const path = require("path");
 const webpack = require("webpack");
-const Dotenv = require("dotenv-webpack");
+// const Dotenv = require("dotenv-webpack");
+const dotenv = require("dotenv");
 const prod = process.env.NODE_ENV === "production";
-
+dotenv.config();
 module.exports = {
   mode: prod ? "production" : "development",
   devtool: prod ? "hidden-source-map" : "eval",
@@ -58,7 +59,10 @@ module.exports = {
   },
 
   plugins: [
-    new Dotenv(),
+    // new Dotenv(),
+    new webpack.DefinePlugin({
+      "process.env": JSON.stringify(process.env),
+    }),
     new webpack.ProvidePlugin({
       React: "react",
     }),
