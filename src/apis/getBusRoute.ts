@@ -5,7 +5,7 @@ const getBusRoute = async (busId: string | undefined) => {
     return;
   }
   const res = await fetch(
-    `/api/rest/busRouteInfo/getStaionByRoute?busRouteId=${busId}&serviceKey=${process.env.REACT_APP_Service_Key}`
+    `/api/rest/busRouteInfo/getStaionByRoute?busRouteId=${busId}&serviceKey=${process.env.REACT_APP_SERVICE_KEY}`
   );
   const xmlString = await res.text();
   const xmlNode = new DOMParser().parseFromString(xmlString, "text/xml");
