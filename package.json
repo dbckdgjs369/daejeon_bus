@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "dev": "webpack serve --mode development --open --hot",
-    "build": "webpack --mode production",
+    "build": "NODE_ENV=production webpack --mode production",
+    "build:dev": "NODE_ENV=development webpack --mode development",
     "prestart": "npm build",
     "start": "webpack --mode development"
   },
