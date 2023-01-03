@@ -5,7 +5,7 @@ const getStationArriveInfo = async (busStopId: string | undefined) => {
     return;
   }
   const res = await fetch(
-    `/api/rest/arrive/getArrInfoByStopID?busStopID=${busStopId}&serviceKey=${process.env.REACT_APP_SERVICE_KEY}`
+    `${process.env.API_URL}/api/rest/arrive/getArrInfoByStopID?busStopID=${busStopId}&serviceKey=${process.env.REACT_APP_SERVICE_KEY}`
   );
   const xmlString = await res.text();
   const xmlNode = new DOMParser().parseFromString(xmlString, "text/xml");
@@ -18,7 +18,7 @@ const getRouteBusPosition = async (routeId: string | undefined) => {
     return;
   }
   const res = await fetch(
-    `/api/rest/busposinfo/getBusPosByRtid?busRouteId=${routeId}&serviceKey=${process.env.REACT_APP_SERVICE_KEY}`
+    `${process.env.API_URL}/api/rest/busposinfo/getBusPosByRtid?busRouteId=${routeId}&serviceKey=${process.env.REACT_APP_SERVICE_KEY}`
   );
   const xmlString = await res.text();
   const xmlNode = new DOMParser().parseFromString(xmlString, "text/xml");
