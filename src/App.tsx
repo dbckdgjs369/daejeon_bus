@@ -8,6 +8,7 @@ import BusStopPage from "./pages/BusStopPage";
 
 const App = () => {
   console.log(process.env.NODE_ENV);
+  console.log(process.env.API_URL);
   return (
     <>
       <BrowserRouter>
