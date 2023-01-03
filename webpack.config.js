@@ -59,7 +59,11 @@ module.exports = {
   },
 
   plugins: [
-    // new Dotenv(),
+    new webpack.DefinePlugin({
+      "process.env.REACT_APP_SERVICE_KEY": JSON.stringify(
+        process.env.REACT_APP_SERVICE_KEY
+      ),
+    }),
     new webpack.DefinePlugin({
       "process.env": JSON.stringify(process.env),
     }),
