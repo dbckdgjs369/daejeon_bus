@@ -7,6 +7,7 @@ import BusRoutePage from "./pages/BusRoutePage";
 import BusStopPage from "./pages/BusStopPage";
 
 const App = () => {
+  console.log(process.env.NODE_ENV);
   return (
     <>
       <BrowserRouter>
